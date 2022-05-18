@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title></title>
+<script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+<style type="text/css">
+	body {background: grey;}
+	*{margin: 0; padding: 0; box-sizing: border-box;}
+	.kapsam{ position: relative; display: flex;justify-content: space-between; }
+	nav {width:300px; height: 100vh; background: darkgreen; position: relative;}
+	.div-nav-kapsam {width:300px; height: 100vh; background:red; position:fixed;}
+	body {background:#ededed; overflow: hidden scroll;}
+	body::-webkit-scrollbar {background: black; width: 8px; border-radius: 6px;}
+	body::-webkit-scrollbar-thumb {background:grey; border-radius:6px;}
+	body::-webkit-scrollbar-track {background: black;}
+	*{margin: 0; padding:0; box-sizing: border-box; font-family: sans-serif; font-weight: bold;}
+	header {position: fixed; width: 100%; height:68px; background:rgb(255,255,255,0.8); box-shadow: 0 0 10px black; display: flex; justify-content: space-between; align-items: center; z-index: 1000;}
+	header .header-left {display: flex; margin-left: 20px;}
+	header .header-left span {position: relative; color:black; display: flex; align-items: center; margin-right:20px; cursor: pointer;}
+	header .header-left span ion-icon {font-size: 40px; color: var(--clr);}
+	header .header-left span h2 {text-shadow: 0 0 3px black; position: relative; left:6px;}
+
+   
+   .header-input {position: relative;width: 400px; height: 38px; background:white; box-shadow: 0 0 10px black; border-radius:4px; box-shadow: 0 0 20px black; display: flex; align-items: center; justify-content: space-between;}
+   .header-input input {width:360px; height:30px; background:white; box-shadow: 0 0 3px black; border-style: none; outline: none; color:black; text-shadow: 0 0 2px black; font-size: 15px; position: relative; left: 3px;border-radius:4px;}
+   .header-input input::placeholder {color: black; text-shadow: 0 0 3px black; position: relative; left: 4px;}
+   .header-input ion-icon {font-size: 27px; color:black; position: relative; right:7px; cursor: pointer;}
+
+
+    .header-right {display: flex; align-items: center;margin-right: 28px; }
+	.header-right label {position: relative; cursor: pointer; color:black; margin-left: 30px;}
+	.header-right label ion-icon {font-size: 31px;}
+	.header-right label img {width:36px; height:36px; border-radius: 50%; box-shadow: 0 0 12px white;}
+     
+     .header-right label span {width: 200px; height: 200px;background:rgb(255,255,255,0.8); box-shadow: 0 0 10px black; position: absolute; top: 62px; right: 0px; border-radius: 4px; display: none;}
+     .header-open-span.active{display: block;}
+     .header-right label span::before {content: ''; width: 0; height: 0; border-width: 13px; border-style: solid; border-color: black transparent transparent transparent; position: absolute; left: 86%; transform: rotate(180deg); top: -26px;}
+
+     .header-right label span li{position: relative; display: flex; list-style: none; cursor: pointer; color: black; align-items: center; height:46px; margin-bottom: 6px; top: 1px;}
+     .header-right label span li:hover {background-color: black;}
+     .header-right label span ion-icon {position: relative; left:6px; color: red; font-size: 30px;}
+     .header-right label span h4 {position: relative; left: 14px; color: black; text-shadow: 0 0 3px black;}
+     .header-right label span li:hover h4{color: white; text-shadow:0 0 3px white;}
+     .header-right label .camera-open  {width:170px;height:100px;background:rgb(255,255,255,0.8); box-shadow: 0 0 10px black; position:absolute; display: flex; flex-direction: column; justify-content: center; right: 0px; top: 62px; display: none;}
+     .header-right label .camera-open.active {display: block;}
+     .header-right label .camera-open::before {content: ''; width: 0; height: 0; border-width: 13px; border-style: solid; border-color: black transparent transparent transparent; position: absolute; left: 83%; transform: rotate(180deg); top: -26px;}
+     .header-right label .camera-open li {position: relative; display: flex; align-items: center; color: black; text-shadow: 0 0  3px black; cursor: pointer; align-items: center; list-style: none;  border-bottom: 2px solid black; height: 50px;}
+     .header-right label .camera-open li:hover{background-color: black;}
+     .header-right label .camera-open li:hover ion-icon, .header-right label .camera-open li:hover h4 {color:white; text-shadow: 0 0 3px white;}
+     .header-right label .camera-open ion-icon {position: relative; left: 4px; font-size: 26px;}
+     .header-right label .camera-open h4 {position: relative; left: 10px; }
+
+
+
+
+
+  .kapsam{position: relative; top: 70.5px;}
+
+   
+	nav {width:290px; height:calc(100vh - 70.5px); background:white; position:fixed;  padding-bottom: 10px;}
+	.div-nav-fixed {width:290px; height:calc(100vh - 70.5px); background:white; position:fixed;  padding-bottom: 10px; overflow: hidden scroll;}
+	
+	nav.active {display: none;}
+	.div-nav-fixed.active {display: none;}
+	.div-nav-fixed::-webkit-scrollbar {width:7px; background:black; cursor: pointer; display:block; display: none;}
+	.div-nav-fixed:hover::-webkit-scrollbar {display: block;}
+	.div-nav-fixed::-webkit-scrollbar-thumb { background:grey; border-radius:6px; }
+	.div-nav-fixed::-webkit-scrollbar-track { background: black;}
+	.div-nav-fixed label {width:4px; height: 38px; position: absolute; left:0.5px; background: white; box-shadow: 0 0 12px white; display: none;}
+	.div-nav-fixed span:hover label, .div-nav-fixed span.active label {display: block;}
+    
+
+	.div-nav-fixed span {position: relative; display: flex;align-items: center; margin-bottom: 10px; top:10px; cursor: pointer;height: 60px;}
+    .div-nav-fixed span:hover, .div-nav-fixed span.active {background: black; box-shadow:0 0 15px black;}
+    .div-nav-fixed span:hover ion-icon, .div-nav-fixed span.active ion-icon {color: white;}
+    .div-nav-fixed span:hover h4, .div-nav-fixed span.active h4{color: white; text-shadow: 0 0 3px white;}
+    .div-nav-fixed span ion-icon {position:relative; left: 10px; color:black; font-size: 35px;}
+    .div-nav-fixed span img {width:36px; height: 36px; border-radius: 50%; box-shadow: 0 0 14px black; position:relative; left: 10px;}
+    .div-nav-fixed span:hover img, .div-nav-fixed span.active img {box-shadow:0 0 14px white;}
+    .div-nav-fixed span h4{position: relative; color: black; text-shadow: 0 0 3px black; left:36px;}
+    .div-nav-fixed  h3 {position:absolute; left: 10px; text-shadow: 0 0 3px black; font-size: 17PX; cursor: pointer;}
+
+	section{width:calc(100% - 330px); height:auto; background:white; display: flex; flex-wrap: wrap;  justify-content: center; position: relative; margin-left: 16px; margin-top: 10px; left: 300px;  }
+	section.active {width: 100%; left: 0;}
+    
+    .section-video-kapsam span {position: relative; display: flex; cursor: pointer; margin-bottom: 12px; }
+    .section-video-kapsam span img {width:360px; height: 260px;  box-shadow: 0 0 14px black;}
+    
+    .section-video-kapsam span label img {width:56px; height: 56px; border-radius: 50%; box-shadow: 0 0 14px black;}
+    .section-video-kapsam span label h4 {color:var(--clr); text-shadow: 0 0 3px var(--clr); max-width:225px; margin-bottom:7px;}
+    .section-video-kapsam span .kapsa {position: relative; left: 8px; }
+
+    .video-ortala{margin: 10px;}
+    .video-ortala:hover {transform:scale(1.07); z-index:900;}
+
+
+
+   
+
+
+
+    @media only screen and (max-width: 1116px) {
+    	.header-input {width: 280px;}
+    	.header-input input {width: 240px;}
+    	.header-input ion-icon {font-size: 24px; right:9px;}
+    }
+
+        @media only screen and (max-width: 900px) {
+    	.header-input {width:30%;}
+    	.header-input input {width:83%;}
+    	.header-input ion-icon {font-size: 24px; right:9px;}
+    }
+
+      @media only screen and (max-width: 820px) {
+    	.header-input {width:30%; display: none;}
+    	.header-input input {width:83%;}
+    	.header-input ion-icon {font-size: 24px; right:9px;}
+    	.section-video-kapsam span img {width: 300px;}
+    }
+
+     @media only screen and (max-width:580px) {
+   
+    	.header-right label{margin-left: 15px;}
+    	header .header-left span{margin-right: 10px;}
+    	header .header-left span ion-icon {font-size:34px;}
+    	header .header-left span h2 {font-size: 20px;}
+    }
+
+    @media only screen and (max-width:900px){
+    	
+    	.div-nav-fixed{position: fixed; z-index: 1000; display: none;}
+    	nav{position: fixed; z-index: 1000; display: none;}
+    	.div-nav-fixed.active{display: block;}
+    	nav.active {display: block;}
+    	section {width: 100%; position: absolute; left: 0; margin-left: 0;}
+    	section.active {width: 100%;}
+    }
+     @media only screen and (max-width:641px){
+    	.section-video-kapsam span img {width: 370px;}
+    }
+     @media only screen and (max-width:390px){
+    	.section-video-kapsam span img {width: 350px;}
+    }
+</style>
+</head>
+<body>
+	<header>
+		<div class="header-left">
+			<span class="nav-open"><ion-icon name="reorder-three-outline" style="--clr:black;"></ion-icon></span>
+			<span><ion-icon name="logo-youtube" style="--clr:red;"></ion-icon><h2>YOUTUBE</h2></span>
+		</div>
+
+		<div class="header-input">
+			<input type="search" name="" placeholder="Search..."><ion-icon name="search"></ion-icon>
+		</div>
+
+
+		<div class="header-right">
+			<label>
+				<ion-icon name="videocam-outline" class="camera-open-icon"></ion-icon>
+                <div class="camera-open">
+                	<li><ion-icon name="camera-reverse-outline"></ion-icon><h4>Upload Video</h4></li>
+                	<li><ion-icon name="pulse-outline"></ion-icon><h4>Go Live</h4></li>
+                </div>
+			</label>
+			<label>
+				<ion-icon name="apps" class="header-open-label"></ion-icon>
+                <span class="header-open-span">
+                	<li><ion-icon name="logo-youtube"></ion-icon><h4>Youtube TV</h4></li>
+                	<li><ion-icon name="logo-youtube"></ion-icon><h4>Youtube Music</h4></li>
+                	<li><ion-icon name="logo-youtube"></ion-icon><h4>Youtube Kids</h4></li>
+                	<li><ion-icon name="logo-youtube"></ion-icon><h4>Youtube For Artist</h4></li>
+                </span>
+			</label>
+			<label><ion-icon name="notifications-outline"></ion-icon></label>
+			<label><img src="https://media-exp1.licdn.com/dms/image/C4E03AQGYTfDVuTekdw/profile-displayphoto-shrink_100_100/0/1646331015779?e=1658361600&v=beta&t=q7qEmOsLxTIkl8pTfXfWz5ehdoPY7WAou_DOhUxglcg"></label>
+		</div>
+	</header>
+<div class="kapsam">
+
+		<nav>
+	<div class="div-nav-fixed">
+	<span class="nav-span active"><ion-icon name="home-outline"></ion-icon><h4>HOME</h4><label></label></span>
+	<span class="nav-span"><ion-icon name="compass-outline"></ion-icon><h4>EXPLORE</h4><label></label></span>
+	<span class="nav-span"><ion-icon name="cash-outline"></ion-icon><h4>SHORTS</h4><label></label></span>
+	<span class="nav-span"><ion-icon name="image-outline"></ion-icon><h4>SUBSCRİPTİONS</h4><label></label></span>
+	<span class="nav-span"><ion-icon name="barcode-outline"></ion-icon><h4>LİBARY</h4><label></label></span>
+	<span class="nav-span"><ion-icon name="eye-outline"></ion-icon><h4>HİSTORY</h4><label></label></span>
+	<span class="nav-span"><ion-icon name="chatbubbles-outline"></ion-icon><h4>MESSAGES</h4><label></label></span>
+	
+	<br><br>
+	<h3>SUBSCRIPTIONS</h3>
+	<br>
+	<span class="nav-span"><img src="https://media-exp1.licdn.com/dms/image/C4E03AQGYTfDVuTekdw/profile-displayphoto-shrink_100_100/0/1646331015779?e=1658361600&v=beta&t=q7qEmOsLxTIkl8pTfXfWz5ehdoPY7WAou_DOhUxglcg"><h4>KAAN</h4><label></label></span>
+	<span class="nav-span"><img src="https://media-exp1.licdn.com/dms/image/C4D0BAQE3aOp3cdsq6A/company-logo_100_100/0/1641456287876?e=1660780800&v=beta&t=-xT7oc-ekc1MzcC8MUt_B9azsnsQ_wW2fKJppMhbCw8"><h4>CLARUSWAY</h4><label></label></span>
+	<span class="nav-span"><img src="https://media-exp1.licdn.com/dms/image/C4D03AQGPj6EU-cbt2g/profile-displayphoto-shrink_100_100/0/1645988964306?e=1658361600&v=beta&t=xk4QxY5gOUmYikMrqzWAhToZljxu_8ZDhBicwZBDbVs"><h4>STEPHAN</h4><label></label></span>
+	<span class="nav-span"><img src="https://media-exp1.licdn.com/dms/image/C4E03AQFBBdcCYjK1QA/profile-displayphoto-shrink_100_100/0/1651148593484?e=1658361600&v=beta&t=TOYJxfmkhiUlsQHX2_FZuENVZAk9iahZEtC7R0V-yDA"><h4>JAMES</h4><label></label></span>
+	<span class="nav-span"><img src="https://media-exp1.licdn.com/dms/image/C4E03AQELlZAx3ZmQjg/profile-displayphoto-shrink_100_100/0/1560946142781?e=1658361600&v=beta&t=2zaxyX4AYClhD83SNgit_ZNN2v7rmNP-4-mTcdHvyB4"><h4>OLİVİA</h4><label></label></span>
+	<span class="nav-span"><img src="https://media-exp1.licdn.com/dms/image/C4E03AQFGsEk7g-nQjg/profile-displayphoto-shrink_100_100/0/1575891316341?e=1658361600&v=beta&t=TszJTJzkGtC1HTmtdKiF7-8R2DtasCsPi_-ewub6YMM"><h4>ALEX</h4><label></label></span>
+	<span class="nav-span"><ion-icon name="add-circle-outline"></ion-icon><h4>BROWSE CHANNELS</h4><label></label></span>
+	<br>
+	<h3>MORE FROM YOUTUBE</h3>
+	<br>
+	<span class="nav-span"><ion-icon name="logo-youtube"></ion-icon><h4>YOUTUBE PREMİUM</h4><label></label></span>
+	<span class="nav-span"><ion-icon name="game-controller-outline"></ion-icon><h4>GAMİNG</h4><label></label></span>
+	<span class="nav-span"><ion-icon name="settings-outline"></ion-icon><h4>SETTİNGS</h4><label></label></span>
+	<span class="nav-span"><ion-icon name="help-circle-outline"></ion-icon><h4>HELP</h4><label></label></span>
+	<span class="nav-span"><ion-icon name="alert-circle-outline"></ion-icon><h4>SEND FEEDBACK</h4><label></label></span>
+	</div>
+</nav>
+
+
+
+
+	<section class="section-video-kapsam">
+		
+		
+
+       
+
+
+
+
+		<div class="video-ortala">
+			    <span><img src="https://i.ytimg.com/vi/7glClI-rj74/hq720.jpg?sqp=-oaymwEcCNAFEJQDSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLAjlLom5MYSpsso7-wVV_DBM0B1Xw"></span>
+		<span>
+			<label><img src="https://media-exp1.licdn.com/dms/image/C4E03AQGYTfDVuTekdw/profile-displayphoto-shrink_100_100/0/1646331015779?e=1658361600&v=beta&t=q7qEmOsLxTIkl8pTfXfWz5ehdoPY7WAou_DOhUxglcg"></label>
+			<div class="kapsa">
+			<label><h4 style="--clr:black;">3d Flip Card Hover Effects | CSS Hover Effects</h4></label>
+			<label><h4 style="--clr:#333333;">KAAN ŞAHİN</h4></label>
+			<label><h4 style="--clr:#333333;">51,944 views - 04-May-2022</h4></label>
+			</div>
+		</span>
+		</div>
+
+
+		<div class="video-ortala">
+			    <span><img src="https://media.istockphoto.com/photos/computer-hacker-with-icons-working-and-stealing-information-on-laptop-picture-id914796628?k=20&m=914796628&s=612x612&w=0&h=7bFDqoFDZVPnYdg20hW4SwWEvdqP_1j1rSPJBP9SocE="></span>
+		<span>
+			<label><img src="https://media-exp1.licdn.com/dms/image/C4D0BAQE3aOp3cdsq6A/company-logo_200_200/0/1641456287876?e=1660780800&v=beta&t=AmBGmHdDJYNTqpAjNCCqX2IwTuVH_-iVXrg_EewfVUA"></label>
+			<div class="kapsa">
+			<label><h4 style="--clr:black;">CSS Text Portrait Effects | Html CSS Tutorial</h4></label>
+			<label><h4 style="--clr:#333333;">CLARUSWAY</h4></label>
+			<label><h4 style="--clr:#333333;">43,200 views - 05-May-2022</h4></label>
+			</div>
+		</span>
+		</div>
+
+		<div class="video-ortala">
+			    <span><img src="https://images.pexels.com/photos/5240545/pexels-photo-5240545.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"></span>
+		<span>
+			<label><img src="https://media-exp1.licdn.com/dms/image/C4D03AQGPj6EU-cbt2g/profile-displayphoto-shrink_100_100/0/1645988964306?e=1658361600&v=beta&t=xk4QxY5gOUmYikMrqzWAhToZljxu_8ZDhBicwZBDbVs"></label>
+			<div class="kapsa">
+			<label><h4 style="--clr:black;">Squid Game Responsive Website using Html CSS & Javascript | How to Make Website</h4></label>
+			<label><h4 style="--clr:#333333;">STEPHAN</h4></label>
+			<label><h4 style="--clr:#333333;">34,750 views - 06-May-2022</h4></label>
+			</div>
+		</span>
+		</div>
+
+		<div class="video-ortala">
+			    <span><img src="https://images.pexels.com/photos/5935787/pexels-photo-5935787.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"></span>
+		<span>
+			<label><img src="https://media-exp1.licdn.com/dms/image/C4E03AQELlZAx3ZmQjg/profile-displayphoto-shrink_100_100/0/1560946142781?e=1658361600&v=beta&t=2zaxyX4AYClhD83SNgit_ZNN2v7rmNP-4-mTcdHvyB4"></label>
+			<div class="kapsa">
+			<label><h4 style="--clr:black;">Simple Parallax Effects for Website | How to make Parallax Website using simpleparallax js</h4></label>
+			<label><h4 style="--clr:#333333;">OLİVİA</h4></label>
+			<label><h4 style="--clr:#333333;">32,060 views - 07-May-2022</h4></label>
+			</div>
+		</span>
+		</div>
+
+
+		<div class="video-ortala">
+			    <span><img src="https://images.pexels.com/photos/5380659/pexels-photo-5380659.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"></span>
+		<span>
+			<label><img src="https://media-exp1.licdn.com/dms/image/C4E03AQFBBdcCYjK1QA/profile-displayphoto-shrink_100_100/0/1651148593484?e=1658361600&v=beta&t=TOYJxfmkhiUlsQHX2_FZuENVZAk9iahZEtC7R0V-yDA"></label>
+			<div class="kapsa">
+			<label><h4  style="--clr:black;">Responsive Facebook App Landing Page Website | How to Make Website using Html CSS & Javascript</h4></label>
+			<label><h4 style="--clr:#333333;">JAMES</h4></label>
+			<label><h4 style="--clr:#333333;">30,025 views - 08-May-2022</h4></label>
+			</div>
+		</span>
+		</div>
+
+
+
+		<div class="video-ortala">
+			    <span><img src="https://images.pexels.com/photos/5926393/pexels-photo-5926393.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"></span>
+		<span>
+			<label><img src="https://media-exp1.licdn.com/dms/image/C4E03AQFGsEk7g-nQjg/profile-displayphoto-shrink_100_100/0/1575891316341?e=1658361600&v=beta&t=TszJTJzkGtC1HTmtdKiF7-8R2DtasCsPi_-ewub6YMM"></label>
+			<div class="kapsa">
+			<label><h4  style="--clr:black;">CSS Glassmorphism Card Hover Effect | Website Card Design Html CSS</h4></label>
+			<label><h4 style="--clr:#333333;">ALEX</h4></label>
+			<label><h4 style="--clr:#333333;">28,450 views - 09-May-2022</h4></label>
+			</div>
+		</span>
+		</div>
+
+
+
+		<div class="video-ortala">
+			    <span><img src="https://media.istockphoto.com/photos/computing-theft-and-criminal-concept-picture-id1042029070?k=20&m=1042029070&s=612x612&w=0&h=huhNnlykedpz4nC4rutLpIqoeOVIqY9gEH-V3rNaQIc="></span>
+		<span>
+			<label><img src="https://media-exp1.licdn.com/dms/image/C4E03AQGCygRoQEkEQg/profile-displayphoto-shrink_100_100/0/1567830742641?e=1658361600&v=beta&t=Pjf1-f85s0G0_oC7XcY1B0ititbCPL-twTM60QxY0xQ"></label>
+			<div class="kapsa">
+			<label><h4  style="--clr:black;">CSS Only Image Comparison Slider</h4></label>
+			<label><h4 style="--clr:#333333;">MİCHEL</h4></label>
+			<label><h4 style="--clr:#333333;">27,220 views - 10-May-2022</h4></label>
+			</div>
+		</span>
+		</div>
+
+
+		<div class="video-ortala">
+			    <span><img src="https://media.istockphoto.com/photos/marketing-of-digital-technology-business-concept-picture-id1155114348?k=20&m=1155114348&s=612x612&w=0&h=IMAlbc4HevQCLLb9ao5K5WZw-Krlk0LOmh1DQai4LkE="></span>
+		<span>
+			<label><img src="https://media-exp1.licdn.com/dms/image/C5603AQHB0ukedmBpgg/profile-displayphoto-shrink_100_100/0/1651991427958?e=1658361600&v=beta&t=hhs6qkdTDbGe3nNOLR6P2RMC5GOm0_dmTc8MM9qmdjo"></label>
+			<div class="kapsa">
+			<label><h4  style="--clr:black;">3d Flip Card Hover Effects | CSS Hover Effects</h4></label>
+			<label><h4 style="--clr:#333333;">JANET</h4></label>
+			<label><h4 style="--clr:#333333;">25,136 views - 11-May-2022</h4></label>
+			</div>
+		</span>
+		</div>
+
+		<div class="video-ortala">
+			    <span><img src="https://media.istockphoto.com/photos/businessman-using-software-laptop-with-customer-service-text-picture-id501362468?k=20&m=501362468&s=612x612&w=0&h=Z90-yz7tJpksUergB1TwALn4DuYD4NFl2NrtZnUGyJ8="></span>
+		<span>
+			<label><img src="https://media-exp1.licdn.com/dms/image/D5603AQEsQVofUEr1cw/profile-displayphoto-shrink_100_100/0/1649327734630?e=1658361600&v=beta&t=wGnqClIK5R9A3VyF6BWeKheSSVJEC9R8uGb52zpw0PQ"></label>
+			<div class="kapsa">
+			<label><h4  style="--clr:black;">Glassmorphism | Shiny Glass Social Media Icon Hover Effects</h4></label>
+			<label><h4 style="--clr:#333333;">OHASHİ</h4></label>
+			<label><h4 style="--clr:#333333;">20,390 views - 12-May-2022</h4></label>
+			</div>
+		</span>
+		</div>
+
+   
+		<div class="video-ortala">
+			    <span><img src="https://media.istockphoto.com/photos/businessman-hand-create-artificial-intelligence-for-technology-and-picture-id1221155808?k=20&m=1221155808&s=612x612&w=0&h=FfAusgEoLa_alJpjPkOFDcB70Qbn-oUd6kkdn3tmDqg="></span>
+		<span>
+			<label><img src="https://media-exp1.licdn.com/dms/image/C4E03AQGYTfDVuTekdw/profile-displayphoto-shrink_100_100/0/1646331015779?e=1658361600&v=beta&t=q7qEmOsLxTIkl8pTfXfWz5ehdoPY7WAou_DOhUxglcg"></label>
+			<div class="kapsa">
+			<label><h4 style="--clr:black;">3d Flip Card Hover Effects | CSS Hover Effects</h4></label>
+			<label><h4 style="--clr:#333333;">KAAN ŞAHİN</h4></label>
+			<label><h4 style="--clr:#333333;">51,944 views - 04-May-2022</h4></label>
+			</div>
+		</span>
+		</div>
+
+
+		<div class="video-ortala">
+			    <span><img src="https://media.istockphoto.com/photos/man-hand-virtual-world-icon-communication-and-use-of-modern-internet-picture-id1394092400?k=20&m=1394092400&s=612x612&w=0&h=DmMWbiZMpVxxJtx_skgaftSJLuKnP3UT5GrY7-fQEO0="></span>
+		<span>
+			<label><img src="https://media-exp1.licdn.com/dms/image/C4D0BAQE3aOp3cdsq6A/company-logo_200_200/0/1641456287876?e=1660780800&v=beta&t=AmBGmHdDJYNTqpAjNCCqX2IwTuVH_-iVXrg_EewfVUA"></label>
+			<div class="kapsa">
+			<label><h4 style="--clr:black;">CSS Text Portrait Effects | Html CSS Tutorial</h4></label>
+			<label><h4 style="--clr:#333333;">CLARUSWAY</h4></label>
+			<label><h4 style="--clr:#333333;">43,200 views - 05-May-2022</h4></label>
+			</div>
+		</span>
+		</div>
+    
+
+    	<div class="video-ortala">
+			    <span><img src="https://media.istockphoto.com/photos/businessman-draw-growing-virtual-hologram-of-statistics-graph-and-picture-id1396449609?k=20&m=1396449609&s=612x612&w=0&h=F00_LNRgInrqv3veKp_494xrNDPNen1TEzMbkcYsP0g="></span>
+		<span>
+			<label><img src="https://media-exp1.licdn.com/dms/image/C4D03AQGPj6EU-cbt2g/profile-displayphoto-shrink_100_100/0/1645988964306?e=1658361600&v=beta&t=xk4QxY5gOUmYikMrqzWAhToZljxu_8ZDhBicwZBDbVs"></label>
+			<div class="kapsa">
+			<label><h4 style="--clr:black;">Squid Game Responsive Website using Html CSS & Javascript | How to Make Website</h4></label>
+			<label><h4 style="--clr:#333333;">STEPHAN</h4></label>
+			<label><h4 style="--clr:#333333;">34,750 views - 06-May-2022</h4></label>
+			</div>
+		</span>
+		</div>
+	
+	</section>
+</div>
+
+
+
+
+
+
+
+
+
+
+<script type="text/javascript">
+	const section = document.querySelector('section');
+	const divnavfixed = document.querySelector('.div-nav-fixed');
+	const cameraicon = document.querySelector('.camera-open-icon');
+	const cameraopen = document.querySelector('.camera-open'); 
+	const headeropenlabel = document.querySelector('.header-open-label');
+	const headeropenspan = document.querySelector('.header-open-span');
+	const navopen = document.querySelector('.nav-open');
+	const nav = document.querySelector('nav');
+	const navspan = document.querySelectorAll('.nav-span');
+	function activeLink(){
+		navspan.forEach((item) =>
+		item.classList.remove('active'));
+		this.classList.add('active');
+	}
+	navspan.forEach((item) =>
+	item.addEventListener('click',activeLink));
+
+	navopen.addEventListener('click',() =>{
+		nav.classList.toggle('active');
+		divnavfixed.classList.toggle('active');
+		section.classList.toggle('active');
+	})
+	headeropenlabel.addEventListener('click',() =>{
+		headeropenspan.classList.toggle('active');
+	})
+	cameraicon.addEventListener('click',()=>{
+		cameraopen.classList.toggle('active');
+	})
+</script>
+</body>
+</html>
